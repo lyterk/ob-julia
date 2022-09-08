@@ -201,12 +201,14 @@ end"
 (defconst org-babel-julia-eoe-indicator "print(\"org_babel_julia_eoe\")")
 (defconst org-babel-julia-eoe-output "org_babel_julia_eoe")
 
-(defconst org-babel-julia-write-object-command "begin
-    local p_ans = %s
+(defconst org-babel-julia-write-object-command "
+begin
     local p_tmp_file = \"%s\"
-
     try
         using CSV, DataFrames
+
+        local p_ans = %s
+
 
         if typeof(p_ans) <: DataFrame
            p_ans_df = p_ans
@@ -232,7 +234,8 @@ end"
 
         err_msg
     end
-end")
+end
+")
 
 (defun org-babel-julia-evaluate
   (session body result-type result-params column-names-p row-names-p)
